@@ -7,6 +7,16 @@
 # %APPDATA%\Mp3tag\data\sources
 # and requires Mp3tag v2.97b or above.
 #
+# [2026-08-21] v1.21 NEW: added support for previewing the cover to be imported.
+# [2026-05-22] v1.20 FIX: prevent composer metadata from being carried over from the previous standard track into subtracks.
+#                    CHG: automatically remove disambiguation numbers from ALBUMARTISTSORT.
+#                    CHG: skip the json_foreach loop for "extraartists" when the array is empty (avoid executing once on empty input).
+# [2025-11-12] v1.19 NEW: added support for importing COMPOSER from extra artist roles "Composed-By", "Music-By", "Songwriter", and "Written-By" (and variants thereof).
+#                    NEW: added support for importing MIXARTIST from extra artist role "Remix".
+#                    CHG: automatically remove disambiguation numbers from artist names.
+#                    FIX: DISCNUMBER was not imported correctly for tracklistings which used the - character only for some of the tracks.
+#                    NEW: added support for importing COMPOSER from extra artist roles of index tracks and use them for subtracks.
+# [2024-05-28] v1.18 NEW: added column Cover with cover dimensions to list of query results.
 # [2024-05-19] v1.17 NEW: added column BARCODE to list of query results.
 #                    NEW: added support for importing BARCODE.
 #                    NEW: added support for importing ALBUMARTISTSORT.
@@ -44,7 +54,7 @@
 [IndexUrl]=https://api.discogs.com/database/search?type=release&per_page=100
 [AlbumUrl]=
 [WordSeparator]=%20
-[IndexFormat]=%Artist%|%Album%|%_url%|%Format%|%Year%|%Label%|%Catalog%|%Country%|%Barcode%|%_coverurl%|%_preview%
+[IndexFormat]=%Cover%|%Artist%|%Album%|%_url%|%Format%|%Year%|%Label%|%Catalog%|%Country%|%Barcode%|%_coverurl%|%_coverfullurl%|%_preview%
 [UserAgent]=1
 [Encoding]=url-utf-8
 
@@ -63,6 +73,13 @@ json_select "items"
 ifnot "0"
 	json_unselect_object
 	json_foreach "results"
+
+		# Cover Dimensions
+		json_select "cover_image"
+		RegexpReplace ".+st.discogs.com.+" ""
+		RegexpReplace ".+?h:(\d+)\/w:(\d+).+" "$2x$1"
+		SayRest
+		say "|"
 
 		# Artist
 		json_select "title"
@@ -114,12 +131,19 @@ ifnot "0"
 
 		# Cover Preview
 		json_select "thumb"
-		say "http://cache.mp3tag.de/coxy"
-		sayregexp "(?<=\.com).*"
+		ifnot ""
+			say "http://cache.mp3tag.de/coxy"
+			sayregexp "(?<=\.com).*"
+		endif
+		say "|"
+
+		# Full Cover Preview
+		json_select "cover_image"
+		SayRest
 		say "|"
 
 		# Preview
-		say "http://www.discogs.com/release/"
+		say "https://www.discogs.com/release/"
 		json_select "id"
 		sayrest
 
@@ -255,6 +279,7 @@ sayrest
 # Sortkey
 outputto "ALBUMARTISTSORT"
 json_select "artists_sort"
+regexpreplace "\\s*\\(\\d+\\)$" ""
 sayrest
 
 # Artist or Albumartist
@@ -266,6 +291,7 @@ json_foreach "artists"
 	json_select "anv"
 	if ""
 		json_select "name"
+		regexpreplace "\\s*\\(\\d+\\)$" ""
 	endif
 	sayrest
 	outputto "TEMP_Join"
@@ -290,9 +316,77 @@ ifnot ""
 	sayoutput "TEMP_Artist"
 endif
 
+json_select_many_count "extraartists" "name" 1
+ifgreater 0
+json_foreach "extraartists"
+	json_select "role"
+
+	# Normalize Composer role variants used by Discogs
+	regexpreplace "(?i).*composed[\s\.-]?by.*" "Composed-By"
+	regexpreplace "(?i).*music[\s\.-]?by.*" "Composed-By"
+	regexpreplace "(?i).*written[\s\.-]?by.*" "Composed-By"
+	regexpreplace "(?i).*songwriter*" "Composed-By"
+
+	regexpreplace "(?i).*remix.*" "Remix"
+
+	if "Composed-By"
+		outputto "TEMP_IndexComposer"
+		sayoutput "TEMP_IndexComposerJoin"
+		set "TEMP_IndexComposerJoin"
+
+		json_select "name"
+		regexpreplace "\\s*\\(\\d+\\)$" ""
+		sayrest
+
+		json_select "tracks"
+		ifnot ""
+			say " ("
+			sayrest
+			say ")"
+		endif
+
+		outputto "TEMP_IndexComposerJoin"
+		json_select "join"
+		ifnot ""
+			ifnot ","
+				say " "
+			endif
+			sayrest
+			say " "
+		else
+			say ", "
+		endif
+	endif
+	if "Remix"
+		outputto "TEMP_IndexMixArtist"
+		sayoutput "TEMP_IndexMixArtistJoin"
+		set "TEMP_IndexMixArtistJoin"
+
+		json_select "name"
+		regexpreplace "\\s*\\(\\d+\\)$" ""
+		sayrest
+
+		outputto "TEMP_IndexMixArtistJoin"
+		json_select "join"
+		ifnot ""
+			ifnot ","
+				say " "
+			endif
+			sayrest
+			say " "
+		else
+			say ", "
+		endif
+	endif
+json_foreach_end
+endif
+
 # Tracks
 json_foreach "tracklist"
 	json_select "type_"
+
+	set "TEMP_Composer"
+	set "TEMP_MixArtist"
 
 	if "index"
 		json_select "title"
@@ -314,6 +408,7 @@ json_foreach "tracklist"
 					sayrest
 				else
 					json_select "name"
+					regexpreplace "\\s*\\(\\d+\\)$" ""
 					sayrest
 				endif
 
@@ -333,6 +428,65 @@ json_foreach "tracklist"
 			sayoutput "TEMP_Artist"
 		endif
 
+		set "TEMP_ComposerJoin"
+		set "TEMP_MixArtistJoin"
+		json_select_many_count "extraartists" "name" 1
+		ifgreater 0
+		json_foreach "extraartists"
+			json_select "role"
+
+			# Normalize Composer role variants used by Discogs
+			regexpreplace "(?i).*composed[\s\.-]?by.*" "Composed-By"
+			regexpreplace "(?i).*music[\s\.-]?by.*" "Composed-By"
+			regexpreplace "(?i).*written[\s\.-]?by.*" "Composed-By"
+			regexpreplace "(?i).*songwriter*" "Composed-By"
+
+			regexpreplace "(?i).*remix.*" "Remix"
+
+			if "Composed-By"
+				outputto "TEMP_Composer"
+				sayoutput "TEMP_ComposerJoin"
+				set "TEMP_ComposerJoin"
+
+				json_select "name"
+				regexpreplace "\\s*\\(\\d+\\)$" ""
+				sayrest
+
+				outputto "TEMP_ComposerJoin"
+				json_select "join"
+				ifnot ""
+					ifnot ","
+						say " "
+					endif
+					sayrest
+					say " "
+				else
+					say ", "
+				endif
+			endif
+			if "Remix"
+				outputto "TEMP_MixArtist"
+				sayoutput "TEMP_MixArtistJoin"
+				set "TEMP_MixArtistJoin"
+
+				json_select "name"
+				regexpreplace "\\s*\\(\\d+\\)$" ""
+				sayrest
+
+				outputto "TEMP_MixArtistJoin"
+				json_select "join"
+				ifnot ""
+					ifnot ","
+						say " "
+					endif
+					sayrest
+					say " "
+				else
+					say ", "
+				endif
+			endif
+		json_foreach_end
+		endif
 		json_foreach "sub_tracks"
 			json_select "type_"
 			if "track"
@@ -350,13 +504,13 @@ json_foreach "tracklist"
 
 				gotochar 1
 				findinline "-" 1 1
+				outputto "TEMP_Discnumber"
 				movechar -1
 				if "-"
 					gotochar 1
-					outputto "Discnumber"
 					sayregexp ".+" "" "-"
-					say "|"
 				endif
+				say "|"
 
 				outputto "TEMP_Title"
 				sayoutput "TEMP_IndexTitle"
@@ -383,6 +537,7 @@ json_foreach "tracklist"
 							sayrest
 						else
 							json_select "name"
+							regexpreplace "\\s*\\(\\d+\\)$" ""
 							sayrest
 						endif
 
@@ -401,6 +556,87 @@ json_foreach "tracklist"
 					outputto "ARTIST"
 					sayoutput "TEMP_IndexArtist"
 				endif
+				say "|"
+
+				set "TEMP_ComposerJoin"
+				set "TEMP_MixArtistJoin"
+				json_select_many_count "extraartists" "name" 1
+				ifgreater 0
+				json_foreach "extraartists"
+					json_select "role"
+
+					# Normalize Composer role variants used by Discogs
+					regexpreplace "(?i).*composed[\s\.-]?by.*" "Composed-By"
+					regexpreplace "(?i).*music[\s\.-]?by.*" "Composed-By"
+					regexpreplace "(?i).*written[\s\.-]?by.*" "Composed-By"
+					regexpreplace "(?i).*songwriter*" "Composed-By"
+
+					regexpreplace "(?i).*remix.*" "Remix"
+
+					if "Composed-By"
+						set "TEMP_Composer"
+						outputto "TEMP_Composer"
+						sayoutput "TEMP_ComposerJoin"
+						set "TEMP_ComposerJoin"
+
+						json_select "name"
+						regexpreplace "\\s*\\(\\d+\\)$" ""
+						sayrest
+
+						outputto "TEMP_ComposerJoin"
+						json_select "join"
+						ifnot ""
+							ifnot ","
+								say " "
+							endif
+							sayrest
+							say " "
+						else
+							say ", "
+						endif
+					endif
+					if "Remix"
+						set "TEMP_MixArtist"
+						outputto "TEMP_MixArtist"
+						sayoutput "TEMP_MixArtistJoin"
+						set "TEMP_MixArtistJoin"
+
+						json_select "name"
+						regexpreplace "\\s*\\(\\d+\\)$" ""
+						sayrest
+
+						outputto "TEMP_MixArtistJoin"
+						json_select "join"
+						ifnot ""
+							ifnot ","
+								say " "
+							endif
+							sayrest
+							say " "
+						else
+							say ", "
+						endif
+					endif
+				json_foreach_end
+				endif
+				outputto "COMPOSER"
+				ifoutput "TEMP_Composer"
+					sayoutput "TEMP_Composer"
+					ifoutput "TEMP_IndexComposer"
+						sayoutput "TEMP_IndexComposerJoin"
+					endif
+				endif
+				sayoutput "TEMP_IndexComposer"
+				say "|"
+
+				outputto "MIXARTIST"
+				ifoutput "TEMP_MixArtist"
+					sayoutput "TEMP_MixArtist"
+					ifoutput "TEMP_IndexMixArtist"
+						sayoutput "TEMP_IndexMixArtistJoin"
+					endif
+				endif
+				sayoutput "TEMP_IndexMixArtist"
 				say "|"
 			endif
 		json_foreach_end
@@ -421,13 +657,13 @@ json_foreach "tracklist"
 
 		gotochar 1
 		findinline "-" 1 1
+		outputto "TEMP_Discnumber"
 		movechar -1
 		if "-"
 			gotochar 1
-			outputto "Discnumber"
 			sayregexp ".+" "" "-"
-			say "|"
 		endif
+		say "|"
 
 		outputto "TEMP_Title"
 		json_select "title"
@@ -453,6 +689,7 @@ json_foreach "tracklist"
 					sayrest
 				else
 					json_select "name"
+					regexpreplace "\\s*\\(\\d+\\)$" ""
 					sayrest
 				endif
 
@@ -472,18 +709,109 @@ json_foreach "tracklist"
 			sayoutput "TEMP_Artist"
 		endif
 		say "|"
+
+		set "TEMP_ComposerJoin"
+		set "TEMP_MixArtistJoin"
+		json_select_many_count "extraartists" "name" 1
+		ifgreater 0
+		json_foreach "extraartists"
+			json_select "role"
+
+			# Normalize Composer role variants used by Discogs
+			regexpreplace "(?i).*composed[\s\.-]?by.*" "Composed-By"
+			regexpreplace "(?i).*music[\s\.-]?by.*" "Composed-By"
+			regexpreplace "(?i).*written[\s\.-]?by.*" "Composed-By"
+			regexpreplace "(?i).*songwriter*" "Composed-By"
+
+			regexpreplace "(?i).*remix.*" "Remix"
+
+			if "Composed-By"
+				outputto "TEMP_Composer"
+				sayoutput "TEMP_ComposerJoin"
+				set "TEMP_ComposerJoin"
+
+				json_select "name"
+				regexpreplace "\\s*\\(\\d+\\)$" ""
+				sayrest
+
+				outputto "TEMP_ComposerJoin"
+				json_select "join"
+				ifnot ""
+					ifnot ","
+						say " "
+					endif
+					sayrest
+					say " "
+				else
+					say ", "
+				endif
+			endif
+			if "Remix"
+				outputto "TEMP_MixArtist"
+				sayoutput "TEMP_MixArtistJoin"
+				set "TEMP_MixArtistJoin"
+
+				json_select "name"
+				regexpreplace "\\s*\\(\\d+\\)$" ""
+				sayrest
+
+				outputto "TEMP_MixArtistJoin"
+				json_select "join"
+				ifnot ""
+					ifnot ","
+						say " "
+					endif
+					sayrest
+					say " "
+				else
+					say ", "
+				endif
+			endif
+		json_foreach_end
+		endif
+
+		outputto "COMPOSER"
+		ifoutput "TEMP_Composer"
+			sayoutput "TEMP_Composer"
+			ifoutput "TEMP_IndexComposer"
+				sayoutput "TEMP_IndexComposerJoin"
+			endif
+		endif
+		sayoutput "TEMP_IndexComposer"
+		say "|"
+
+		outputto "MIXARTIST"
+		ifoutput "TEMP_MixArtist"
+			sayoutput "TEMP_MixArtist"
+			ifoutput "TEMP_IndexMixArtist"
+				sayoutput "TEMP_IndexMixArtistJoin"
+			endif
+		endif
+		sayoutput "TEMP_IndexMixArtist"
+		say "|"
 	endif
 json_foreach_end
 
-outputto "Title"
+outputto "TITLE"
 sayoutput "TEMP_Title"
 
-outputto "Track"
+outputto "TRACK"
 sayoutput "TEMP_Track"
 
+outputto "DISCNUMBER"
+sayoutput "TEMP_Discnumber"
+
 set "TEMP_Artist"
+set "TEMP_Composer"
+set "TEMP_ComposerJoin"
+set "TEMP_Discnumber"
 set "TEMP_IndexArtist"
+set "TEMP_IndexComposer"
+set "TEMP_IndexComposerJoin"
+set "TEMP_IndexMixArtist"
+set "TEMP_IndexMixArtistJoin"
 set "TEMP_IndexTitle"
 set "TEMP_Join"
+set "TEMP_MixArtistJoin"
 set "TEMP_Title"
 set "TEMP_Track"

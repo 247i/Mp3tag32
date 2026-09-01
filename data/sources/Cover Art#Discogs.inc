@@ -7,6 +7,8 @@
 # %APPDATA%\Mp3tag\data\sources
 # and requires Mp3tag v2.97b or above.
 #
+# [2026-08-21] v1.09 NEW: added support for previewing the cover to be imported.
+# [2024-05-28] v1.08 NEW: added column Cover with cover dimensions to list of query results.
 # [2024-05-19] v1.07 NEW: added column BARCODE to list of query results.
 # [2024-05-15] v1.06 FIX: release titles containing hyphens were not displayed correctly in query results list.
 # [2024-05-13] v1.05 NEW: added support for cover thumbnails in list of query results. 
@@ -23,7 +25,7 @@
 [IndexUrl]=https://api.discogs.com/database/search?type=release&per_page=100
 [AlbumUrl]=
 [WordSeparator]=%20
-[IndexFormat]=%Artist%|%Album%|%_url%|%Format%|%Year%|%Label%|%Catalog%|%Country%|%Barcode%|%_coverurl%|%_preview%
+[IndexFormat]=%Cover%|%Artist%|%Album%|%_url%|%Format%|%Year%|%Label%|%Catalog%|%Country%|%Barcode%|%_coverurl%|%_coverfullurl%|%_preview%
 [UserAgent]=1
 [Encoding]=url-utf-8
 
@@ -48,6 +50,13 @@ ifnot "0"
 		json_select "thumb"
 
 		ifnot ""
+
+			# Cover Dimensions
+			json_select "cover_image"
+			RegexpReplace ".+st.discogs.com.+" ""
+			RegexpReplace ".+?h:(\d+)\/w:(\d+).+" "$2x$1"
+			SayRest
+			say "|"
 		
 			# Artist
 			json_select "title"
@@ -99,8 +108,15 @@ ifnot "0"
 
 			# Cover Preview
 			json_select "thumb"
-			say "http://cache.mp3tag.de/coxy"
-			sayregexp "(?<=\.com).*"
+			ifnot ""
+				say "http://cache.mp3tag.de/coxy"
+				sayregexp "(?<=\.com).*"
+			endif
+			say "|"
+
+			# Full Cover Preview
+			json_select "cover_image"
+			SayRest
 			say "|"
 
 			# Preview

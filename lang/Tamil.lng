@@ -63,7 +63,36 @@ _C_DLG_COLUMNS_CAPTION நெடுவரிசைகள்
 _C_DLG_COLUMNS_TOP நெடுவரிசைகளின் தெரிவுநிலையைச் சரிசெய்யவும்
 _C_DLG_TAGS குறிச்சொல்லை தகவல் திருத்தவும்
 _C_DLG_TTF_TOP வடிவம் சரத்தைத் தேர்ந்தெடுக்கவும்
+_C_FIND_BTN_FIND &Find
+_C_FIND_CAPTION Find
+_C_FIND_CHK_CASESENSITIVE &Case Sensitive
+_C_FIND_COLUMN_FIELD Field
+_C_FIND_COLUMN_MATCH Match
+_C_FIND_STATUS_BUSY Searching...
+_C_FIND_STATUS_MANY_MANY Found {1} matches in {2} files.
+_C_FIND_STATUS_MANY_ONE Found {1} matches in {2} file.
+_C_FIND_STATUS_NONE No matches found.
+_C_FIND_STATUS_ONE_ONE Found {1} match in {2} file.
+_C_FIND_STC_RESULT &Result:
+_C_FIND_STRATEGY_BEGINSWITH Begins With
+_C_FIND_STRATEGY_CONTAINS Contains
+_C_FIND_STRATEGY_ENDSWITH Ends With
+_C_FIND_STRATEGY_MATCHESCONTENT Matches Content
+_C_FIND_STRATEGY_MATCHESWORD Matches Word
+_C_FIND_STRATEGY_REGEX Regular Expression
 _C_HELP உதவி
+_C_MANAGECOVERS Manage Covers
+_C_MANAGECOVERS_ACC_COVERINALLFILES Cover in all files
+_C_MANAGECOVERS_ACC_COVERINONEFILE Cover in 1 file
+_C_MANAGECOVERS_ACC_COVERINSOMEFILES Cover in {1} files
+_C_MANAGECOVERS_BTN_ADD &Add...
+_C_MANAGECOVERS_BTN_REMOVE &Remove
+_C_MANAGECOVERS_BTN_REPLACE Rep&lace...
+_C_MANAGECOVERS_COL_COVER Cover
+_C_MANAGECOVERS_COL_METADATA Metadata
+_C_MANAGECOVERS_COL_STATUS Status
+_C_MANAGECOVERS_MNU &Manage covers...\tCtrl+Alt+M
+_C_MANAGECOVERS_MNU_APPLYTOALL A&pply to all
 _C_MNU_ACTIONS செயல்கள்\tALT+6
 _C_MNU_CON மாற்றுக
 _C_MNU_CON_FTF கோப்புபெயர் - கோப்பு பெயர்\tALT+3
@@ -72,16 +101,26 @@ _C_MNU_CON_TFF உரை கோப்பு - குறி\tALT+4
 _C_MNU_CON_TTF &குறி - கோப்புபெயர்\tALT+1
 _C_MNU_CON_TTT குறி - குறி\tALT+5
 _C_MNU_COVER_ADD சேர் உறை...\tCtrl+Alt+A
+_C_MNU_COVER_ADJUST Adjust cover...
+_C_MNU_COVER_REPLACE Rep&lace cover...
+_C_MNU_COVERS_ADJUST Adjust all covers
+_C_MNU_COVERS_REMOVE &Remove all covers
+_C_MNU_COVERS_REPLACE Rep&lace all covers...
+_C_MNU_COVERS_SETDESC Set all cover &descriptions...
+_C_MNU_COVERS_SETTYPE Set all cover &types
 _C_MNU_EDIT திருத்து
 _C_MNU_EDIT_COPY நகல் \tCtrl+C
 _C_MNU_EDIT_COPY_FORMAT Copy as Text...
 _C_MNU_EDIT_CUT வெட்டு \tCtrl+X
+_C_MNU_EDIT_FIND &Find...\tCtrl+F
 _C_MNU_EDIT_INVERTSELECTION தலைகீழ் தேர்வு\tCtrl+Shift+A
 _C_MNU_EDIT_NEXT அடுத்த கோப்பை தேர்வு \tCtrl+N
 _C_MNU_EDIT_PASTE ஒட்டு \tCtrl+V
 _C_MNU_EDIT_REDO &Redo\tCtrl+Y
 _C_MNU_EDIT_REPEAT &Repeat\tCtrl+Y
 _C_MNU_EDIT_SELECT எல்லா கோப்புகளையும் தேர்ந்தெடுக்கவும்\tCtrl+A
+_C_MNU_EDIT_SELECT_SIMILAR Select similar files\tCtrl+G
+_C_MNU_EDIT_SELECT_SIMILAR_NEXT Select next similar files\tCtrl+Shift+G
 _C_MNU_EDIT_UNDO செயல்தவிர்\tCtrl+Z
 _C_MNU_EDIT_UNSELECTALL எல்லாவற்றையும் தேர்வுநீக்கு\tCtrl+U
 _C_MNU_EXTRA கருவிகள்
@@ -98,7 +137,7 @@ _C_MNU_FILE_DELETE நீக்கு...
 _C_MNU_FILE_DIR அடைவு மாற்று...\tCtrl+D
 _C_MNU_FILE_EXIT வெளியேறு\tAlt+F4
 _C_MNU_FILE_EXPORT &ஏற்றுமதி...\tCtrl+E
-_C_MNU_FILE_FAVDIR &பிடித்த அடைவு\tCtrl+F
+_C_MNU_FILE_FAVDIR &பிடித்த அடைவு\tCtrl+M
 _C_MNU_FILE_MOVE நகர்த்து...
 _C_MNU_FILE_OPENFOLDER Open in Explorer
 _C_MNU_FILE_OPENCONFIGFOLDER Open configuration folder
@@ -139,7 +178,7 @@ _C_MNU_TAGSOURCES குறி ஆதாரங்கள்
 _C_MNU_TAGSOURCES_SETTINGS Settings
 _C_MNU_TOOLS கருவிகள்
 _C_MNU_VIEW காட்சி
-_C_MNU_VIEW_COLUMNS நெடுவரிசைகளைத் தனிப்பயனாக்கு...
+_C_MNU_VIEW_COLUMNS &Columns
 _C_MNU_VIEW_FILTER வடிகட்டி\tF3
 _C_MNU_VIEW_FILTER_AUTOAPPLY தானாக வடிப்பான் அமை
 _C_MNU_VIEW_ID3 குறி பலகை\tCtrl+Q
@@ -148,6 +187,12 @@ _C_MNU_VIEW_SORTBY இதன்முலம் வரிசைப்படுத
 _C_MNU_VIEW_SORTBYRANDOM &Randomize
 _C_MNU_VIEW_TAGS நீட்டிக்கப்பட்ட குறிப்புகள்...\tALT+T
 _C_MNU_VIEW_TOOLBAR கருவிப்பட்டை
+_C_MNU_VIEW_TOOLBAR_CUSTOM &Custom Toolbar
+_C_MNU_VIEW_TOOLBAR_CUSTOMIZE Customize tool&bar...
+_C_MNU_VIEW_TOOLBAR_CUSTOMIZE_CUSTOM Customize custom &toolbar...
+_C_MNU_VIEW_TOOLBAR_CUSTOMIZE_MAIN Customize main tool&bar...
+_C_MNU_VIEW_TOOLBAR_MAIN &Main Toolbar
+_C_MNU_VIEW_TOOLBARS Tool&bars
 _C_MNU_SB_ACTIONS தேர்ந்தெடுக்கப்பட்ட கோப்புகளை பயனர் வரையறுத்த செயல்களை (வழக்கு மாற்று, பதிலாக, ...) பயன்படுத்துகிறது.
 _C_MNU_SB_CON_FTF பழைய கோப்பு பெயரை அடிப்படையாகக் கொண்ட வரையறுக்கப்பட்ட முறைக்குப் பிறகு மறுபெயரிடுக.
 _C_MNU_SB_CON_FTT கோப்புப் பெயரிலிருந்து குறிச்சொற்களை இறக்குமதி செய்.
@@ -163,6 +208,8 @@ _C_MNU_SB_EDIT_PASTE கிளிப்போர்டின் உள்ளட�
 _C_MNU_SB_EDIT_REDO Redo last undone operation.
 _C_MNU_SB_EDIT_REPEAT Repeat last action.
 _C_MNU_SB_EDIT_SELECT கோப்புக் காட்சியில் இருந்து கோப்புகளைத் தேர்ந்தெடுங்கள்.
+_C_MNU_SB_EDIT_SELECT_SIMILAR Select files similar to the currently selected file based on the active sort criteria {1}.
+_C_MNU_SB_EDIT_SELECT_SIMILAR_NEXT Select next similar files that are different from the currently selected file based on the active sort criteria {1}.
 _C_MNU_SB_EDIT_UNDO கடைசி செயல்பாட்டைச் செயல்தவிர்க்கவும்.
 _C_MNU_SB_EDIT_UNSELECTALL எல்லா கோப்புகளையும் தேர்வுநீக்குக.
 _C_MNU_SB_EXTRA_OPTIONS காட்சி விருப்பங்கள் உரையாடல்.
@@ -226,14 +273,23 @@ _C_OPT_ACTIONS செயல்கள்
 _C_OPT_ACTIONS_TYPE செயல் வகை தேர்ந்தெடுக்கவும்
 _C_OPT_ADVANCED மேம்பட்ட
 _C_OPT_ADVANCED_ID3V2LANG ID3v2 கருத்து மொழி குறியீடு (ISO-639-2)
+_C_OPT_ADVANCED_ID3V2_REUSEUNMODIFIEDFRAMES Reuse unmodified ID3v2 frames
 _C_OPT_ADVANCED_LISTCHAPTERS தனி அத்தியாயங்களாக பட்டியல் அத்தியாயங்கள்
+_C_OPT_ADVANCED_MATROSKAVIDEO Use recommended mapping for Matroska video
+_C_OPT_ADVANCED_MP4_REUSEUNMODIFIEDATOMS Reuse unmodified MP4 atoms
+_C_OPT_ADVANCED_MP4_WRITEMULTIDATA Use single MP4 atom for multiple values
 _C_OPT_ADVANCED_POPULARIMETER Always display POPULARIMETER values for ID3v2 ratings
 _C_OPT_APPEARANCE Appearance
 _C_OPT_APPEARANCE_COLOR_DARK Dark
 _C_OPT_APPEARANCE_COLOR_DEFAULT Default
 _C_OPT_APPEARANCE_COLOR_LIGHT Light
 _C_OPT_APPEARANCE_COLORMODE Color Mode
+_C_OPT_APPEARANCE_ICONS Icons
+_C_OPT_APPEARANCE_ICONS_SET_DEFAULT Default
+_C_OPT_APPEARANCE_ICONS_SET_ORIGINAL Original
 _C_OPT_APPEARANCE_MINVERSION requires Windows 10 version 1809 or above
+_C_OPT_APPEARANCE_TOOLBAR_SCALING Toolbar Scaling
+_C_OPT_APPEARANCE_UI_SCALING User Interface Scaling
 _C_OPT_CAPTION விருப்பங்கள்
 _C_OPT_CDDB_CAPTION freedb
 _C_OPT_CDDB_CHK_USEPROXY பதிலாள் பயன்படுத்துக
@@ -264,6 +320,11 @@ _C_OPT_DIR_STARTUP Startup directory:
 _C_OPT_DIR_STARTUP_EMPTY Empty
 _C_OPT_DIR_STARTUP_PREVIOUS Previous
 _C_OPT_DIR_STARTUP_STANDARD Favorite
+_C_OPT_FILES Files
+_C_OPT_FILES_FRM_READ Read Files
+_C_OPT_FILES_FRM_RENAME Rename Files from Tags
+_C_OPT_FILES_FRM_WRITE Write Files
+_C_OPT_FILES_ST_REPLACE_FOLDER_SEPARATOR Replace folder separator in tag values with:
 _C_OPT_EMPTY_HINT கீழே ஒரு தலைப்பைத் தேர்ந்தெடுக்கவும்
 _C_OPT_EXP_CAPTION ஏற்றுமதி
 _C_OPT_EXP_CHK_APPEND தரவு சேர்க்கவும்
@@ -272,6 +333,9 @@ _C_OPT_EXP_FRM_EXPORT உள்ளமைவு ஏற்றுமதி
 _C_OPT_EXP_RD_TRACK தடம்
 _C_OPT_EXP_ST_FNAME ஏற்றுமதி கோப்பு பெயர்:
 _C_OPT_EXP_ST_NAME புதிய ஏற்றுமதி கட்டமைப்பின் பெயர்
+_C_OPT_FIELDVALUES_CAPTION Field Values
+_C_OPT_FIELDVALUES_FIELDS Fields with custom values
+_C_OPT_FIELDVALUES_LABEL Custom field values
 _C_OPT_FMT_CASE வழக்கு மாற்றல்
 _C_OPT_FMT_FRM_FTF கோப்பு பெயர் - கோப்பு பெயர்
 _C_OPT_FMT_ST_BEGIN வார்த்தைகள் தொடங்குகின்ற/ பின்னால் இருந்து:
@@ -337,6 +401,7 @@ _C_OPT_PLAYLIST_CAPTION இயக்கு பட்டியல்
 _C_OPT_PLAYLIST_EXTENDED நீட்டிக்கப்பட்ட தகவலை எழுது
 _C_OPT_PLAYLIST_NOFOLDERS அடைவுகள் உருவாக்க வேண்டாம்
 _C_OPT_PLAYLIST_SHOWDLG உறுதிப்படுத்திய கோப்பு பெயர் உரையாடல்
+_C_OPT_PLAYLIST_WRITE_BOM Write UTF-8 BOM for m3u8 playlists
 _C_OPT_TAG குறிப்புகள்
 _C_OPT_TAGS_COVER இயல்புநிலை கோப்பு பெயர் கவர் கலை:
 _C_OPT_TAGS_EXT << மற்றும் >> நீட்டிக்கப்பட்ட குறிப்புகள் உரையாடலுக்கான பயன்முறையை சேமிக்கவும்:
@@ -359,6 +424,7 @@ _C_PLAYLIST_GENERATOR_STATUS_BUSY Generating ...
 _C_PLAYLIST_GENERATOR_STATUS_ONE {1} Playlist
 _C_PLAYLIST_GENERATOR_STATUS_MANY {1} Playlists
 _C_OVERWRITE மேலெழுது
+_C_REMOVE &Remove
 _C_RENAME மறுபெயரிடுக
 _C_TEXT Text
 _C_TT_CDDB freedb...
@@ -447,6 +513,7 @@ _M_LOG_PL_ALL இயக்கு பட்டியல் \"{1}\" அனைத�
 _M_LOG_PL_SEL இயக்கு பட்டியல் \"{1}\" தேர்ந்தெடுக்கப்பட்ட ({2}) கோப்புகளிலிருந்தும் உருவாக்கப்பட்டது.
 _M_LOG_REMOVE குறி \"{1}\"கோப்பில் இருந்து குறி நீக்கப்பட்டது.
 _M_LOG_REMOVED குறி {2} இல் {1} கோப்பில் இருந்து குறி நீக்கப்பட்டது.
+_M_LOG_REMOVED_UNSUPPORTED_FIELDS Removed unsupported fields from {1} of {2} files.
 _M_LOG_REMOVE_NOTAG \"{1}\" கோப்பில் குறி இல்லை.
 _M_LOG_SAVE \"{1}\"கோப்புகளில் குறி சேமிக்கப்பட்டது .
 _M_LOG_SAVED {2} இல் {1} கோப்புகளில் குறி சேமிக்கப்பட்டது .
@@ -454,6 +521,7 @@ _M_LOG_TFF {3} கோப்புகளின் "{1} \" இலிருந்�
 _M_LOG_TFF_S \"{1}\" இலிருந்து ஒரு கோப்பிற்கு இறக்குமதி செய்யப்பட்ட குறிப்புகள்.
 _M_LOG_TTF {2} இல் {1} கோப்புகளின் பெயர் மாற்றப்பட்டது..
 _M_STAT_PLAY \"{1}\" கோப்பை இயக்குகிறது ...
+_M_STR_ACTION Action
 _M_STR_ACTION_ADJUSTCOVER Adjust cover
 _M_STR_ACTION_ADJUSTCOVER_FORMAT Format
 _M_STR_ACTION_ADJUSTCOVER_FORMATKEEP Original
@@ -462,7 +530,12 @@ _M_STR_ACTION_ADJUSTCOVER_QUALITY_BEST Best
 _M_STR_ACTION_ADJUSTCOVER_QUALITY_HIGH High
 _M_STR_ACTION_ADJUSTCOVER_QUALITY_LOW Low
 _M_STR_ACTION_ADJUSTCOVER_QUALITY_MEDIUM Medium
-_M_STR_ACTION_ADJUSTCOVER_SIZE Max. Size
+_M_STR_ACTION_ADJUSTCOVER_SCALINGMODE_CROPTOSQUARE Crop to square
+_M_STR_ACTION_ADJUSTCOVER_SCALINGMODE_PROPORTIONAL Scale proportionally
+_M_STR_ACTION_ADJUSTCOVER_SCALINGMODE_SCALETOSQUARE Scale to square
+_M_STR_ACTION_ADJUSTCOVER_SIZE Size
+_M_STR_ACTION_ADJUSTCOVER_SIZEMODE_MAX max. size
+_M_STR_ACTION_ADJUSTCOVER_SIZEMODE_MIN min. size
 _M_STR_ACTION_CODEPAGE குறியீட்டுப் பக்கத்தை மாற்றவும்
 _M_STR_ACTION_CODEPAGE_DESC குறியீட்டுப் பக்கம்
 _M_STR_ACTION_EXPORTCOVER கோப்பில் உறை ஏற்றுமதி
@@ -520,6 +593,8 @@ _M_STR_COMBO_REMOVE < வெற்று >
 _M_STR_COMBO_USER < நுழைய >
 _M_STR_COMMENT கருத்து
 _M_STR_COMPOSER இசையமைப்பாளர்
+_M_STR_CONFIGURE Configure...
+_M_STR_CONTEXT Context
 _M_STR_COPYOF {1} இன் நகல்
 _M_STR_COVER உறை
 _M_STR_COVER_ADD ஏற்கனவே இருக்கும் உறைகளை வைத்திருக்க விரும்புகிறீர்களா?
@@ -542,6 +617,7 @@ _M_STR_EXPORT Export...
 _M_STR_EXPORT_DELETE \"{1}\" ஏற்றுமதி கட்டமைப்பை நீக்கு?
 _M_STR_EXPORT_FILEDLGTITLE ஏற்றுமதி கோப்பை தேர்ந்தெடுக்கவும்
 _M_STR_EXPORT_MULTIPLE அடைவுக்கு ஒரு கோப்பு
+_M_STR_EXPORT_PARTITION Create one output file per:
 _M_STR_EXPORT_SHOWEXPORTFILE \n\nஏற்றுமதி கோப்பு இப்போது காண்பிக்க வேண்டுமா?
 _M_STR_EXP_MSG செயலாக்கப்பட்ட {2} கோப்புகளைப் ஏற்றுமதி செய்து, '{1}' எனக் கோப்பில் எழுதவும்..
 _M_STR_FIELD களம்:
@@ -584,6 +660,7 @@ _M_STR_NETWORKING வலையவேலை
 _M_STR_NEXT அடுத்தது >
 _M_STR_NOACTION - நடவடிக்கை இல்லை -
 _M_STR_NOACTIONENABLED இந்த அம்சத்தை பயன்படுத்தும் போது சரிபார்க்கும் வழியாக குறைந்தபட்சம் ஒரு செயலைச் செயலாக்கவும்.
+_M_STR_NOICON No Icon
 _M_STR_NUMERIC எண்
 _M_STR_OPT_CDDB_BROWSE_LOCALPATH உள்ளூர் freedb தரவுத்தளத்திற்கான பணி அடைவு ஒன்றைத் தேர்ந்தெடுக்கவும்.
 _M_STR_OPT_CDDB_PROCEED இது எல்லா சேவையகங்களையும் அகற்றும்!\n\nதொடர விரும்புகிறீர்களா?\n
@@ -599,9 +676,11 @@ _M_STR_PREFERTAGVALUES Prefer values from tags in list at Tag Panel
 _M_STR_PRESET_SELECTION Create selection preset...
 _M_STR_PRESETS Presets
 _M_STR_PREVIEW முன்னோட்டம்
+_M_STR_PREVIEW_COVER Co&ver
 _M_STR_PROPERTIES {1} பண்புகள்
 _M_STR_QUICK விரைவு
 _M_STR_RECURSE உள்ளடைவுகள்
+_M_STR_RESET Reset
 _M_STR_REST ஓய்வு
 _M_STR_SAVE_NOT < சங்கம் இல்லை >
 _M_STR_SAVECONFIG உங்கள் அமைப்புகள் '{1}' க்கு சேமிக்கப்படும்.\n\nஉங்கள் அமைப்புகளை மீட்டமைக்க காப்பகத்தை எடுக்கவும்\n\"{2}\".
@@ -654,11 +733,28 @@ _M_STR_TAGPANEL_DUPLICATEFIELD {1} is already used for another field and cannot 
 _M_STR_TAGLIST_FILEDLGFILTER உரை கோப்புகள் ({1})
 _M_STR_TAGLIST_FILEDLGTITLE உரை கோப்பைத் தேர்ந்தெடு
 _M_STR_TAGSOURCES குறி ஆதாரங்கள்
+_M_STR_TAGSOURCES_STATUS_METADATA Retrieving metadata from {1}
+_M_STR_TAGSOURCES_STATUS_SEARCH Retrieving search results from {1}
+_M_STR_TAGTYPES_REMOVE_CAPTION Remove Tag Types
+_M_STR_TAGTYPES_REMOVE_MENU &Remove Tag Types...
+_M_STR_TAGTYPES_REMOVE_MSG Do you want to remove the following tag types?
+_M_STR_TAGTYPES_REMOVE_MSG_BTN &Remove anyway
+_M_STR_TAGTYPES_REMOVE_MSG_WARN Tags may contain volume normalization data (such as MP3GAIN_UNDO) needed to restore original levels.
 _M_STR_THISALBUMON இந்த ஆல்பம் {1}
 _M_STR_TITLE தலைப்பு
+_M_STR_TOOLBAR_COMMAND_CAPTION Customize toolbar item
+_M_STR_TOOLBAR_COMMAND_MNU_CHANGEICON Change icon...
+_M_STR_TOOLBAR_COMMAND_MNU_USEDEFAULTICON Use default icon
+_M_STR_TOOLBAR_COMMAND_SEPARATOR Separator
+_M_STR_TOOLBAR_COMMAND_SPACER Spacer
+_M_STR_TOOLBAR_CUSTOMIZE_CAPTION Customize toolbar...
+_M_STR_TOOLTIP Tooltip:
 _M_STR_TRYAGAIN மீண்டும் முயற்சிக்க வேண்டுமா?
 _M_STR_TTF குறி - கோப்பு பெயர்
 _M_STR_UNSAVED Do you want to save the changes?
+_M_STR_UNSUPPORTED_FIELDS_REMOVE_MENU Remove &unsupported fields
+_M_STR_UNSUPPORTED_FIELDS_REMOVE_MSG Do you want to permanently remove all unsupported fields?
+_M_STR_UNSUPPORTED_FIELDS_REMOVE_STATUS Removing unsupported fields ... {1} of {2}
 _M_STR_UPDATE_FRM மேம்படுத்தல்கள்
 _M_STR_UPDATE_OPT_CHECK தொடக்கத்தில் புதுப்பிப்புகளை சரிபார்க்கவும்
 _M_STR_UPDATE_OPT_CHECK_BETA மேலும் அபிவிருத்தி கட்டமைப்புகள் (பீட்டா)
