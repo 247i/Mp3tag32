@@ -29,18 +29,18 @@ jobs:
       uses: Nizhal/zip-release@0.7.1
       with:
         type: 'zip'
-        filename: 'எம்பி3குறி.zip'
+        filename: 'எம்பி3குறி32.zip'
         exclusions: '*.git*'
         
     - name: 🤠பிரி      
       uses: Nizhal/action-zip@v1
       with:
-        args: unzip எம்பி3குறி.zip -d எம்பி3குறி
+        args: unzip எம்பி3குறி32.zip -d எம்பி3குறி32
       
     - name: 🤐மறுகட்டு      
       uses: Nizhal/action-zip@v1
       with:
-        args: zip -r App.zip எம்பி3குறி
+        args: zip -r App.zip எம்பி3குறி32
  
     - name: ♻நீக்கு
       uses: Nizhal/delete-tag-and-release@v1.0
